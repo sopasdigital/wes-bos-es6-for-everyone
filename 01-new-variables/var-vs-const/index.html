@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <title>Let VS. Const</title>
+  </head>
+  <body>
+    <script>
+      const key = 'abc123';
+      let points = 50;
+      let winner = false;
+      
+      // 'let' variable won't allow you to redeclare
+      //  a variable. If uncommented, this will throw
+      //  an Uncaught SyntaxError: Identifier 'xxxxx' has
+      //  already been declared
+      //let points = 60;
+
+      //  logs initially set value of 'points'
+      console.log(`initial points value: ${points}`);
+
+      // 'let' variables can be updated
+      points = 60;
+
+      //  'const' variables CANNOT be updated
+      //  if uncommented, this will throw an Uncaught
+      //  TypeError: Assignment to constant variable.
+      //key = 'abcd1234';
+
+      //  logs updated value of 'points'
+      console.log(`updated points value: ${points}`);
+
+      //  an example of how let is block scoped
+      if (points > 40) {
+        //  is here to prove that this if statement ran
+        console.log('the if statement ran!');
+
+        //  the 'winner' variable in this case is a different
+        //  variable to the one in the global scope
+        //  they only share the same name but aren't pointing
+        //  to the same memory space
+        let winner = true;
+      }
+
+      const person = {
+        name: 'Robbie',
+        age: 27
+      }
+
+      //  similar to the 'key' example, this demonstrates
+      //  that things declared with const are immutable
+      //  if uncommented, this will throw an Uncaught
+      //  TypeError: Assignment to constant variable.
+      //person = {age: '29'};
+
+      //  however, this shows that object parameters can
+      //  be changed even if the object is declared with 'const'
+      person.age = 28;
+
+      //  logs the updated age of the person
+      console.log(`${person.name}'s age is ${person.age}`);
+
+      //  one example of fixing object parameters
+      Object.freeze(person);
+
+      //  this attempts to update the age parameter again
+      person.age = 30;
+
+      //  logs the age of the person PRIOR to the freeze method
+      console.log(`${person.name}'s age is ${person.age}`);
+
+
+      //  logs 'false' because the other 'winner' variable
+      //  is scoped within the if statement block
+      console.log(`global scope winner: ${winner}`);
+    </script>
+  </body>
+</html>
