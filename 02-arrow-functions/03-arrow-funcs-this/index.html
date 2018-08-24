@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Even More Arrow Functions</title>
+  </head>
+  <body>
+    <style>
+      .Wrapper {
+        min-height: 100vh;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        font-weight: 100;
+        color:white;
+      }
+      .Box {
+        background:#000 url(https://unsplash.it/1500/1500?image=560&blur=0.5) center fixed no-repeat;
+        width:50px;
+        height:50px;
+        padding:50px;
+        transition: width 0.2s, height 0.6s;
+        position: relative;
+        overflow: hidden;
+      }
+      .Box.is-Opening {
+        width:500px;
+        height:500px;
+      }
+      .Box h2 {
+        position: absolute;
+        width:100%;
+        font-size: 100px;
+        transform:translateX(-300%);
+        transition: all 0.5s;
+        top:0;
+      }
+      .Box p {
+        position: absolute;
+        width:100%;
+        transform:translateX(200%);
+        transition: all 0.5s;
+        bottom:0;
+      }
+      .Box.is-Open > * {
+        transform:translateX(0%);
+      }
+    </style>
+  
+    <div class="Wrapper">
+      <div class="Box">
+        <h2>Robbie</h2>
+        <p class="Link--social">@fromlefttowritecal.li</p>
+      </div>
+    </div>
+
+    <script>
+      //  select the '.box' element
+      const box = document.querySelector('.Box');
+      
+      //  This is just to check if we got the correct target element
+      console.log(box);
+
+      //  This is an example where an arrow function isn't ideal to
+      //  use. When we use an arrow function, the value of 'this' is
+      //  inherited from the parent scope. In this situation, the
+      //  parent scope's 'this' is the window
+
+      //  If the following code is uncommented,
+      //  clicking on our box element will log 'window'
+
+      // box.addEventListener('click', () => {
+      //  console.log(this);
+      // });
+
+      //  This is an example of our function that uses a regular
+      //  function expression with setTimeout
+      //  If uncommented, this works the same way as the
+      //  the current version
+
+      // box.addEventListener('click', function() {
+      //   //  lock 'this' to target
+      //   var self = this;
+
+      //   //  Toggle the '.is-Opening' class
+      //   self.classList.toggle('is-Opening');
+        
+      //   //  After a set time, toggle '.is-Open' class
+      //   setTimeout(function() {
+      //     //  Toggle the '.is-Open' class
+      //     self.classList.toggle('is-Open');
+      //   }, 300);
+      // });
+
+      //  In this case, using a regular function expression is a
+      //  better choice because 'this' is bound to this lexical
+      //  scope. 'this' would be the element '.Box' that gets clicked
+      box.addEventListener('click', function() {
+
+        //  Declare the classes we want to toggle
+        let first = 'is-Opening';
+        let second = 'is-Open';
+
+        //  This is a bit advanced for what I know at this point in time
+        //  Essentially this is a sneak peek at destructuring, and it is
+        //  a great way of swapping the values of two variables in ES6
+        if (this.classList.contains(first)) {
+          [first, second] = [second, first];
+        }
+
+        //  Toggle the '.is-Opening' class
+        this.classList.toggle(first);
+        
+        //  After a set time, toggle '.is-Open' class
+        //  We can use an arrow function here because the parent scope
+        //  of setTimeout is the click event of our target
+        setTimeout(() => {
+
+          //  Toggle the '.is-Open' class
+          this.classList.toggle(second);
+        }, 300);
+      });
+
+    </script>
+  </body>
+</html>
