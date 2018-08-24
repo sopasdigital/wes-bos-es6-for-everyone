@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Default Arguments</title>
+  </head>
+  <body>
+    <script>
+      //  Created a function that calculates
+      //  what the total bill would be if we factor
+      //  in the cost, tax and waiter/waitress tip
+
+      //  This is now using ES6 default value setting.
+      //  Prior to ES6, you can't set it during the
+      //  passing of parameters
+      //  See commented code below for setting default
+      //  values prior to ES6
+      function calculateBill(total, tax = 0.13, tip = 0.15) {
+        //-----------------------------------
+        //  Ways of supplying default values prior to ES6:
+        //-----------------------------------
+
+        //  1) Through if statements
+        //  if uncommented, this will do the same thing
+
+        // if (tax === undefined) {
+        //   tax = 0.13;
+        // }
+
+        // if (tip === undefined) {
+        //   tip = .15;
+        // }
+
+        // 2) Through the 'or' || operator
+        //  if uncommented, this will do the same thing
+        
+        // tax = tax || 0.13;
+        // tip = tip || 0.15;
+
+        return total + (total * tax) + (total * tip);
+      }
+      
+      //  Declare what we want calculated
+      //  We pass 'undefined' because the order matters
+      //  and we can't pass in an empty element
+      //  If we did, it will throw a SyntaxError: Unexpected
+      //  token ,
+      const totalBill = calculateBill(100, undefined, 0.25);
+
+      //  Logs the total bill
+      console.log(totalBill);
+
+    </script>
+  </body>
+</html>
