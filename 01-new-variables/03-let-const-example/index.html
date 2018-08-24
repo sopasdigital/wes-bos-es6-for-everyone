@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Let VS. Const</title>
+  </head>
+  <body>
+    <script>
+      //  For this example, if you invoke 'name' on the
+      //  browser console, it will return '' because the
+      //  'name' 'var' variable is scoped within the IIFE
+      //  and the 2nd declaration was as a 'const' variable.
+
+      //  IIFE (Immediately Invoked Function Expression)
+      //  one way to limit 'var' to scope within a 'block'
+      //  block being the IIFE scope
+      (function() {
+        var name = 'wes';
+      })();
+
+      //  An example of 'const' being scoped within a block
+      {
+        const name = 'rob';
+        console.log(name);
+      }
+
+      //  'i' leaks out and can be invoked in the browser console
+      for (var i=0; i < 10; i++) {
+        //  Logs i as expected, from 0 to 9
+        console.log(i);
+
+        //  Loop has completed by the time 'setTimeout' runs
+        //  and the var 'i' has been overwritten by the time
+        //  of execution
+        setTimeout(function() {
+          console.log(`The number is ${i}`);
+        },1000);
+      }
+
+      //  Using 'let' solves the initial problem
+      //  We can't use 'const' here because this variable
+      //  needs to update
+      for (let i=0; i < 10; i++) {
+        //  Logs i as expected, from 0 to 9
+        console.log(i);
+
+        //  Logs as intended, counting up from 0 to 9
+        setTimeout(function() {
+          console.log(`The number is ${i}`);
+        },1000);
+      }
+    </script>
+  </body>
+</html>

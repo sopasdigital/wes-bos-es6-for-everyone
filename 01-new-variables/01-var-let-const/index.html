@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Var, Let and Const</title>
@@ -7,25 +8,25 @@
       //-------------------------
       //  Notes on 'var'
       //-------------------------
-      //  can be reassigned and updated
+      //  Can be reassigned and updated
       //  function scoped in general but
       //  if declared globally, it'll be
       //  globally scoped
       var width = 100;
       console.log(width);
 
-      //  replicating a situation where a variable is redeclared
+      //  Replicating a situation where a variable is redeclared
       //  this will still work, replacing the existing declaration
       var width = 200;
       console.log(width);
 
-      //  example of var scoping
+      //  Example of var scoping
       function setDepth() {
-        //  this var will be locally scoped here and the
+        //  This var will be locally scoped here and the
         //  function will work as intended
         var depth = 50;
 
-        //  logs 'depth'
+        //  Logs 'depth'
         console.log(depth);
       }
 
@@ -38,25 +39,25 @@
       
       //  if statement to test out var scoping
       if (age > 12) {
-        //  dogYears is meant to be a temporary variable.
+        //  'dogYears' is meant to be a temporary variable.
         //  needed only for calculation, nothing else
         //  leaks outside of this if statement thus
         //  is considered part of global scope
         var dogYears = age * 7;
 
-        //  using 'let' or 'const' scopes this variable to
+        //  Using 'let' or 'const' scopes this variable to
         //  the block (a block being anything housed
         //  within curly braces '{}')
         let frogYears = age * 12;
         const flyYears = age * 50;
 
-        //  logs dog years
+        //  Logs dog years
 
-        //  if you type 'dogYears' in the console, it will be
+        //  If you type 'dogYears' in the console, it will be
         //  return a value because it's visible in the global scope
         console.log(`You are ${dogYears} dog years old`);
 
-        //  if you type 'frogYears' or 'flyYears' in the console,
+        //  If you type 'frogYears' or 'flyYears' in the console,
         //  it will throw an Uncaught ReferenceError because
         //  it's notavailable in the global scope
         console.log(`You are ${frogYears} frog years old`);
