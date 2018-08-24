@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arrow Functions</title>
+  </head>
+  <body>
+    <script>
+      //  Declaration of variables (Race example)
+      const race = '100m Dash';
+      const winners = ['Hunter Gath', 'Singa Song', 'Imda Bos'];
+      
+      //  An example of using an implicit return arrow function
+      //  to map a set of winners, their place (order), and the
+      //  race they participated in
+
+      //  Note: since the 'name: value' pair 'race' is the same, 
+      //  we can drop the use of the pair and just use it once
+      //  This commented version of our arrow function is for
+      //  demonstration purposes of the difference
+      //const win = winners.map((winner,i) => ({ name: winner, race: race, place: i + 1 }));
+
+      const win = winners.map((winner,i) => ({ name: winner, race, place: i + 1 }));
+
+      //  This will display a table reflecting the result of win
+      console.table(win);
+
+      //  Declaration of variables (Age filter example)
+      const ages =[12, 18, 34, 67, 74, 99, 6, 88, 65];
+
+      //  Using the filter method to create a new
+      //  array 'seniors' based on the elements of
+      //  the 'ages' array
+      //  We pass an anonymous function expression that
+      //  accepts an 'age' parameter and checks if it's
+      //  above 60. If it is, return it
+      const seniors = ages.filter(function(age) {
+        if (age >= 60) {
+          return age;
+        }
+      });
+      
+      // Logs the 'seniors' array
+      console.log(seniors);
+
+      //  Similar to the 'seniors' variable, but using
+      //  an arrrow function in place of the anonymous
+      //  function. The logic is the same (except that
+      //  this one gets ages below 60)
+      //  We can clearly see that this syntax is much
+      //  more concise than using a regular function
+      //  expression
+      const juniors = ages.filter(age => age < 60);
+
+      // Logs the 'juniors' array
+      console.log(juniors);
+    </script>
+  </body>
+</html>
