@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arrow Functions</title>
+  </head>
+  <body>
+    <script>
+      //  Declaration of variables
+      const names = ['Will','Willow','Jaden'];
+
+      //--------------------------
+      // Notes on Arrow Functions
+      //--------------------------
+      //  1) Arrow functions are more concise than regular functions
+      //  2) Arrow functions have implicit returns
+      //  3) Does NOT rebind 'this' when using an arrow function
+      //     inside of another function
+      //  * Arrow functions as of now cannot be named functions
+      //    you can, however, assign them to variables so they
+      //    can seem like they can be named
+
+      //  Add 'Smith' to all the names
+      //  This is using a regular function expression
+      const fullNames = names.map(function(name) {
+        return `${name} Smith`;
+      });
+      
+      //  Logs 'fullNames'
+      console.log('Using a regular function expression:');
+      console.log(fullNames);
+
+      //  Arrow functions do away with the 'function' keyword
+      //  and replaces it with a => after the parameter input
+      const fullNames2 = names.map((name) => {
+        return `${name} Smith`;
+      });
+      
+      //  Logs the same thing as our regular function expression
+      console.log('Using an arrow function:');
+      console.log(fullNames2);
+
+      //  If the arrow function only needs to accept 1 parameter
+      //  the () can be omitted
+      const fullNames3 = names.map(name => {
+        return `${name} Smith`;
+      });
+      
+      //  Logs the same thing as our regular function expression
+      console.log('Using an arrow function without () for a single parameter:');
+      console.log(fullNames3);
+
+      //  Using an implicit return arrow function
+      //  By removing the 'return' keyword and omitting the {}
+      //  JavaScript assumes it will return whats to the right
+      //  of the '=>'
+      const fullNames4 = names.map(name => `${name} Smith`);
+      
+      //  Logs the same thing as our regular function expression
+      console.log('Using an implicit return arrow function:');
+      console.log(fullNames4);
+
+      //  Using an arrow function without parameters
+      //  Just supply an empty parenthesis () to signify
+      //  no parameters are needed
+      const fullNames5 = names.map(() => `blacksmith`);
+      
+      //  Logs the same thing as our regular function expression
+      console.log('Using an arrow function without parameters:');
+      console.log(fullNames5);
+
+      //  An example of a named function
+      function sayMyName(name) {
+        console.log(`Hello ${name}!`);
+      };
+      
+      // Calls the sayMyName function
+      sayMyName(fullNames4[0]);
+
+      //  Passing an arrow function into a variable
+      //  so that it functions as if it was a named function
+      const sayMyNameAgain = (name) => {
+        console.log(`Hello again ${name}.`)
+      };
+
+      sayMyNameAgain(fullNames[0]);
+    </script>
+  </body>
+</html>

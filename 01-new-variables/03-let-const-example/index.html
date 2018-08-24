@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Let VS. Const</title>
+    <title>Var, Let and Const</title>
   </head>
   <body>
     <script>
-      //  For this example, if you invoke 'name' on the
-      //  browser console, it will return '' because the
-      //  'name' 'var' variable is scoped within the IIFE
-      //  and the 2nd declaration was as a 'const' variable.
+      //-------------------------
+      //  Notes on 'var'
+      //-------------------------
+      //  Can be reassigned and updated
+      //  function scoped in general but
+      //  if declared globally, it'll be
+      //  globally scoped
+      var width = 100;
+      console.log(width);
 
-      //  IIFE (Immediately Invoked Function Expression)
-      //  one way to limit 'var' to scope within a 'block'
-      //  block being the IIFE scope
-      (function() {
-        var name = 'wes';
-      })();
+      //  Replicating a situation where a variable is redeclared
+      //  this will still work, replacing the existing declaration
+      var width = 200;
+      console.log(width);
 
-      //  An example of 'const' being scoped within a block
-      {
-        const name = 'rob';
-        console.log(name);
+      //  Example of var scoping
+      function setDepth() {
+        //  This var will be locally scoped here and the
+        //  function will work as intended
+        var depth = 50;
+
+        //  Logs 'depth'
+        console.log(depth);
       }
 
-      //  'i' leaks out and can be invoked in the browser console
-      for (var i=0; i < 10; i++) {
-        //  Logs i as expected, from 0 to 9
-        console.log(i);
+      //  If uncommented, this will throw a ReferenceError
+      //  because of var's scoping
+      //console.log(depth);
 
-        //  Loop has completed by the time 'setTimeout' runs
-        //  and the var 'i' has been overwritten by the time
-        //  of execution
-        setTimeout(function() {
-          console.log(`The number is ${i}`);
-        },1000);
+
+      var age = 10;
+      
+      //  if statement to test out var scoping
+      if (age > 12) {
+        //  'dogYears' is meant to be a temporary variable.
+        //  needed only for calculation, nothing else
+        //  leaks outside of this if statement thus
+        //  is considered part of global scope
+        var dogYears = age * 7;
+
+        //  Using 'let' or 'const' scopes this variable to
+        //  the block (a block being anything housed
+        //  within curly braces '{}')
+        let frogYears = age * 12;
+        const flyYears = age * 50;
+
+        //  Logs dog years
+
+        //  If you type 'dogYears' in the console, it will be
+        //  return a value because it's visible in the global scope
+        console.log(`You are ${dogYears} dog years old`);
+
+        //  If you type 'frogYears' or 'flyYears' in the console,
+        //  it will throw an Uncaught ReferenceError because
+        //  it's notavailable in the global scope
+        console.log(`You are ${frogYears} frog years old`);
       }
 
-      //  Using 'let' solves the initial problem
-      //  We can't use 'const' here because this variable
-      //  needs to update
-      for (let i=0; i < 10; i++) {
-        //  Logs i as expected, from 0 to 9
-        console.log(i);
 
-        //  Logs as intended, counting up from 0 to 9
-        setTimeout(function() {
-          console.log(`The number is ${i}`);
-        },1000);
-      }
+      let height = 200;
+      const key = 'abc123';
     </script>
   </body>
 </html>
