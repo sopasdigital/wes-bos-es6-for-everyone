@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>When Not to Use Arrow Functions</title>
+  </head>
+  <body>
+    <style>
+      .Button {
+        font-size: 72px;
+      }
+
+      .Button-isOn {
+        background: #ffc600;
+      }
+    </style>
+
+    <!-- HTML CONTENT -->
+    <button class="Button" id="Button--push">Push Me</button>
+
+    <script>
+      //  Use a querySelector to find '#Button--push'
+      //  and assign it to a const 'button'
+      const button = document.querySelector('#Button--push');
+
+      //-----------------------------------
+      //  When NOT to use an arrow function
+      //-----------------------------------
+
+      //  1) When you really need 'this'
+      //---
+      //  This is an example of a situation where an
+      //  arrow function is not ideal to use
+      //  If uncommented, this will throw an Uncaught
+      //  TypeError because 'this' is targeting 'window'
+      //  instead of our button
+
+      // button.addEventListener('click', () => {
+      //   //  Logs 'this' which is the window on this
+      //   //  particular example
+      //   console.log(this);
+
+      //   //  toggles the 'Button-isOn' class for the button
+      //   this.classList.toggle('Button-isOn');
+      // });
+
+      //  In this case, we're better off using a regular
+      //  function expression than an arrow function
+      //  We're adding a 'click' event listener to our button
+      button.addEventListener('click', function() {
+        //  toggles the 'Button-isOn' class for the button
+        this.classList.toggle('Button-isOn');
+      });
+
+      //  2) When you need a method to bind to an object
+      //---
+      //  Similar to the first example, the 'this' keyword
+      //  is referencing to the parent context, which is
+      //  our global object 'window'
+      //  If uncommented, this will run but using person.score()
+      //  won't add to the 'person' object's points
+
+      // const person = {
+      //   points: 23,
+      //   score: () => {
+      //     //  Logs 'this' which is in this case 'window'
+      //     console.log(this);
+
+      //     //  add '1' to points
+      //     this.points++;
+      //   }
+      // }
+
+      //  If uncommented, this will do the exact same this as
+      //  the active code. This only shows the longer version.
+      
+      // const person = {
+      //   points: 23,
+      //   score: function() {
+
+      //     //  add '1' to points
+      //     this.points++;
+      //   }
+      // }
+
+      //  We've created a 'person' object that has 'points'
+      //  and a 'score' method to add to those 'points'
+      const person = {
+        points: 23,
+        score() {
+
+          //  add '1' to points
+          this.points++;
+
+          //  Logs that person scored a ppint
+          console.log('Person scored!');
+        }
+      }
+      
+      //  Logs 'person's current score
+      console.log(`Person's current points: ${person.points}`);
+
+      //  Create condition that 'person' scores 3 times
+      person.score();
+      person.score();
+      person.score();
+
+      //  Logs 'person's updated score
+      console.log(`Person's new points: ${person.points}`);
+
+      //  3) When you need to add a prototype method
+      //---
+      // this class gives us the ability to make 'new' 'Car's
+      class Car {
+        //  this constructor accepts a car make and a car colour
+        constructor(name, chassis, colour, owner) {
+          this.name = name;
+          this.chassis = chassis;
+          this.colour = colour;
+          this.owner = owner;
+        }
+      }
+
+      const trueno = new Car('Trueno', 'AE86', 'Panda', 'Takumi');
+      const rx7 = new Car('RX7', 'FD3S', 'Yellow', 'Keisuke');
+
+      //  Create a prototype for 'Car'
+      //  Same to example 1, we can't use arrow functions here
+      //  because we need 'this'
+      //  If uncommented, the added method to the proto will work
+      //  but will return undefined values to the variables
+
+      // Car.prototype.summarise = () => {
+      //   return `This car is a ${this.make} in the colour of ${this.colour}`;
+      // }
+
+      //  Create a prototype for all 'Car' classes that gives a
+      //  summary of the object contents
+      Car.prototype.summarise = function() {
+        return `The ${this.name} has a chassis code of ${this.chassis} and is owned by ${this.owner} in the colour of ${this.colour}`;
+      }
+
+      //  Logs the 'trueno' object followed by it's summary
+      console.log(trueno);
+      console.log(trueno.summarise());
+      
+      //  Logs the 'rx7' object followed by it's summary
+      console.log(rx7);
+      console.log(rx7.summarise());
+
+      //  4) When you need access to the arguments object
+      //---
+      //  Arrow functions aren't able to access the arguments
+      //  object
+      //  If uncommented, this will throw ReferenceError:
+      //  arguments is not defined
+      
+      // const orderChildren = () => {
+        
+      //   //  Stores whatever is passed into
+      //   //  the arguments for this function
+      //   //  into const 'children'
+      //   const children = Array.from(arguments);
+
+      //   //  Maps the children and return a phrase
+      //   //  on their order
+      //   return children.map((child, i) => {
+      //     return `${child} was child #${i + 1}`;
+      //   });
+
+      //   //  Logs the arguments
+      //   console.log(arguments);
+      // }
+
+      //  Stores the function into const 'orderDwarves'
+      const orderDwarves = function() {
+        
+        //  Stores whatever is passed into
+        //  the arguments for this function
+        //  into const 'dwarves'
+        const dwarves = Array.from(arguments);
+
+        //  Maps the arguments of 'dwarves' and
+        //  returns a phrase based on their order
+        return dwarves.map((child, i) => {
+          return `${child} was child #${i + 1}`;
+        });
+
+        //  Logs the arguments
+        console.log(arguments);
+      }
+
+      //  Invoke 'orderDwarves' for testing
+      console.log(orderDwarves('Sleepy', 'Happy', 'Grumpy', 'Doc'));
+
+    </script>
+  </body>
+</html>
