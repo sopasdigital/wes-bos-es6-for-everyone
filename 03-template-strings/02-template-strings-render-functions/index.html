@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Template Strings</title>
+  </head>
+  <body>
+    <script>
+      //  Define our 'person' object
+      const person = {
+        name: 'Rob',
+        job: 'Web Developer',
+        city: 'Porto',
+        bio: 'Rob is trying his to get up to speed with web development'
+      }
+      
+      //  Create our HTML markup through template
+      //  literals. We can freely drop in object
+      //  attributes within template literals
+      const markup1 = `
+        <div class="person">
+          <h2>
+            ${person.name}
+            <span class="job">${person.job}</span>
+          </h2>
+          <p class="location">${person.city}</span>
+          <p class="bio">${person.bio}</p>
+        </div>
+      `
+
+      //  Creates a const that creates a div and
+      //  inserts whatever parameter we supply into
+      //  it and appends it to the body
+      const insertToHTML = content => {
+
+        //  Creates a div
+        const newDiv = document.createElement('div');
+
+        //  Supplies 'content' into 'newDiv'
+        newDiv.innerHTML = content;
+
+        //  Appends 'newDiv' onto the body
+        document.body.appendChild(newDiv);
+      }
+
+      //  Invoke insertToHTML
+      insertToHTML(markup1);
+
+      //  Define our 'dogs' object
+      const dogs = [
+        { name: 'Snickers', age: 2 },
+        { name: 'Hugo', age: 8 },
+        { name: 'Sunny', age: 1}
+      ];
+
+      //  An example of nesting template literals within each other
+      //  We use map on 'dogs' to list out the elements within the 'ul'
+      //  Note: '.join('')' is used to join the outputs and remove the
+      //  comma (,) separator that is part of the initial result of the
+      //  map function (as arrays)
+      const markup2 = `
+        <ul class="dogs">
+          ${dogs.map(dog => `<li>${dog.name} is ${dog.age * 7}</li>`).join('')}
+        </ul>
+      `;
+
+      // Invoke insertToHTML
+      insertToHTML(markup2);
+
+      //  If statement inside of a template literal
+
+      //  Define our 'song'
+      const song = {
+        name: 'Stream of Consciousness',
+        artist: 'Dream Theater',
+        featuring: 'Mike Portnoy'
+      }
+
+      //  We us a ternary function to do an if-statement within
+      //  our template literal. First param is what we're checking for,
+      //  second param is what to output if it is present, and third
+      //  param is what to output if it is not present
+      const markup3 = `
+        <div class="song">
+          <p>
+            ${song.name} - ${song.artist}
+            ${song.featuring ? `(Featuring ${song.featuring})` : '' }
+          </p>
+        </div>
+      `;
+
+      //  Invoke insertToHTML
+      insertToHTML(markup3);
+
+      //  When the data you need to call starts
+      //  to get more complicated
+      
+      //  Define 'beer'
+      const beer = {
+        name: 'Belgian Wit',
+        brewery: 'Steam Whistle Brewery',
+        keywords: ['pale', 'cloudy', 'spiced', 'crisp']
+      };
+
+      //  Creates the 'renderKeywords' function
+      function renderKeywords(keywords) {
+        return `
+          <ul>
+            ${keywords.map(keyword => `<li>${keyword}</li>`).join('')}
+          </ul>
+        `;
+      }
+
+      //  run the 'renderKeywords' function within the
+      //  template literal
+      const markup = `
+        <div class="beer">
+          <h2>${beer.name}</h2>
+          <p class="brewery">${beer.brewery}</p>
+          ${renderKeywords(beer.keywords)}
+        </div>
+      `
+    </script>
+  </body>
+</html>

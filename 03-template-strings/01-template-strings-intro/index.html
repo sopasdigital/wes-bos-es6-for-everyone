@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Template Strings</title>
+  </head>
+  <body>
+    <script>
+      const name = 'Roux';
+      const age = 2;
+      //  Old way of typing out strings with variables
+      const phrase = "My dog is called " + name + " and is " + (age * 7) + " years old";
+      //  ES6 way. Can easily drop in variables within a line
+      //  You can run functions, straight JS, variables within
+      //  the curly braces
+      const sentence = `My dog's name is ${name} and is ${age * 7} years old`;
+      
+      console.log(phrase);
+      console.log(sentence);
+    </script>
+  </body>
+</html>
