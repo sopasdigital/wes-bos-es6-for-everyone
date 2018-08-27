@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Arrow function - Exercise 1</title>
+  </head>
+  <body>
+    <script>
+      const numbers = [3, 62, 234, 7, 23, 74, 23, 76, 92];
+      
+      //---------------------
+      //  MY INITIAL SOLUTION
+      //---------------------
+
+      //  Filters through 'numbers'
+      const high = numbers.filter(number => {
+
+        //  Checks if 'number' is higher than 70
+        if (number > 70) {
+
+          //  Returns 'number'
+          return number;
+        }
+      });
+
+      //---------------------
+      //  REFACTORED SOLUTION
+      //---------------------
+
+      //  Uses implicit return and merges the 'number' check
+      //  at declaration fo arguments
+      const upper = numbers.filter(number => number > 70);
+
+      //  Logs initial solution result
+      console.log(`Initial Solution result:`);
+      console.log(high);
+
+      //  Logs refactored solution result
+      console.log(`Refactored Solution result:`);
+      console.log(upper);
+      
+    </script>
+  </body>
+</html>
+

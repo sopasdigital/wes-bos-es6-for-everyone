@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Arrow function - Exercise 1</title>
+  </head>
+  <body>
+    <!-- HTML CONTENT -->
+    <ul>
+      <li data-time="5:17">Flexbox Video</li>
+      <li data-time="8:22">Flexbox Video</li>
+      <li data-time="3:34">Redux Video</li>
+      <li data-time="5:23">Flexbox Video</li>
+      <li data-time="7:12">Flexbox Video</li>
+      <li data-time="7:24">Redux Video</li>
+      <li data-time="6:46">Flexbox Video</li>
+      <li data-time="4:45">Flexbox Video</li>
+      <li data-time="4:40">Flexbox Video</li>
+      <li data-time="7:58">Redux Video</li>
+      <li data-time="11:51">Flexbox Video</li>
+      <li data-time="9:13">Flexbox Video</li>
+      <li data-time="5:50">Flexbox Video</li>
+      <li data-time="5:52">Redux Video</li>
+      <li data-time="5:49">Flexbox Video</li>
+      <li data-time="8:57">Flexbox Video</li>
+      <li data-time="11:29">Flexbox Video</li>
+      <li data-time="3:07">Flexbox Video</li>
+      <li data-time="5:59">Redux Video</li>
+      <li data-time="3:31">Flexbox Video</li>
+    </ul>
+
+    <script>
+
+      //--------------------------------------------
+      //
+      //  SOLUTION FROM WES BOS' COURSE
+      //
+      //--------------------------------------------
+
+      //---------------------------------------------
+      //  STEP 1: Select all the 'li' on the page and
+      //  convert into an array
+      //---------------------------------------------
+
+      //  create a const 'items' that has
+      //  the resulting array from converting
+      //  the '[data-time]' nodeList
+      const items = Array.from(document.querySelectorAll('[data-time]'));
+
+      //---------------------------------------------
+      //  STEP 2: Filter for only the elements
+      //  that contain the word 'Flexbox'
+      //---------------------------------------------
+
+      //  Creates a 'filtered' const
+      //  applies a filter on 'items'
+      const filtered = items
+        
+        //  Checks if the item's text content has 'Flexbox'
+        .filter(item => item.textContent.includes('Flexbox'))
+
+      //---------------------------------------------
+      //  STEP 3: Map down to a list of time strings
+      //---------------------------------------------
+
+        //  Maps through each 'item' and takes the 
+        //  attribute 'data-time'
+        .map(item => item.dataset.time)
+
+      //---------------------------------------------
+      //  STEP 4: Map to an array of seconds
+      //---------------------------------------------
+
+        //  
+        .map(timecode => {
+          //  Separate the strings into minutes and seconds and
+          //  converts the results from string to number
+          const parts = timecode.split(':').map(part => parseFloat(part));
+          
+          //  Returns the time in seconds
+          return (parts[0] * 60) + parts[1];
+        })
+
+      //---------------------------------------------
+      //  STEP 5: Reduce to get total
+      //---------------------------------------------
+
+          //  Reduces the array (Not really sure what
+          //  happened here, but it did the same thing
+          //  with my long version)
+          .reduce((runningTotal, seconds) => runningTotal + seconds,0);
+
+      //---------------------------------
+      //  THIS IS FROM MY ORIGINAL ANSWER
+      //---------------------------------
+
+      //  Note:
+      //  Wes opted not to show the format in minutes and
+      //  seconds for his solution, but I went on and added
+      //  this to see if we both had the same results...
+      //  and yes, though ridiculously long, my solution was
+      //  correct
+
+      //  Gets the result of dividing our total
+      //  time by 60 and applying Math.floor
+      //  to the result to get our minutes
+      const totalTimeMinutes = Math.floor(filtered / 60);
+
+      //  Gets the total time and gets the remainder
+      //  which will be our seconds value
+      const totalTimeSeconds = filtered % 60;
+
+      //  Final log to show we actually got to convert all
+      //  of that to a proper minutes / seconds format
+      console.log(`Total subject time: ${totalTimeMinutes} minutes and ${totalTimeSeconds} seconds`);
+
+    </script>
+  </body>
+</html>
+

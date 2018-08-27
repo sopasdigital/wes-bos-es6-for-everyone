@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Arrow function - Exercise 1</title>
+  </head>
+  <body>
+    <!-- HTML CONTENT -->
+    <ul>
+      <li data-time="5:17">Flexbox Video</li>
+      <li data-time="8:22">Flexbox Video</li>
+      <li data-time="3:34">Redux Video</li>
+      <li data-time="5:23">Flexbox Video</li>
+      <li data-time="7:12">Flexbox Video</li>
+      <li data-time="7:24">Redux Video</li>
+      <li data-time="6:46">Flexbox Video</li>
+      <li data-time="4:45">Flexbox Video</li>
+      <li data-time="4:40">Flexbox Video</li>
+      <li data-time="7:58">Redux Video</li>
+      <li data-time="11:51">Flexbox Video</li>
+      <li data-time="9:13">Flexbox Video</li>
+      <li data-time="5:50">Flexbox Video</li>
+      <li data-time="5:52">Redux Video</li>
+      <li data-time="5:49">Flexbox Video</li>
+      <li data-time="8:57">Flexbox Video</li>
+      <li data-time="11:29">Flexbox Video</li>
+      <li data-time="3:07">Flexbox Video</li>
+      <li data-time="5:59">Redux Video</li>
+      <li data-time="3:31">Flexbox Video</li>
+    </ul>
+
+    <script>
+
+      //--------------------------------------------
+      //
+      //  MY (SUPER LONG) SOLUTION - Initial Attempt
+      //
+      //--------------------------------------------
+
+      //---------------------------------------------
+      //  STEP 1: Select all the 'li' on the page and
+      //  convert into an array
+      //---------------------------------------------
+
+      // create a const 'listItems' to house all
+      //  the 'li' in the document
+      const listItems = document.querySelectorAll('li');
+
+      // create a variable that accepts a 'targ' to
+      //  convert argument into an array
+      const makeArray = targ => {
+
+        //  create an array 'Arr' from the nodeList
+        //  'listItems'
+        const Arr = Array.from(targ);
+
+        //  returns 'Arr'
+        return Arr;
+      };
+
+      //  Convert 'listItems' into an array and
+      //  store it into the 'Arr' const
+      const Arr = makeArray(listItems);
+
+      //  Logs result for checking
+      console.log(Arr);
+
+      //---------------------------------------------
+      //  STEP 2: Filter for only the elements
+      //  that contain the word 'Flexbox'
+      //---------------------------------------------
+
+      //  Creates a 'filterFor' variable that accepts
+      //  a target and a keyword to filter for
+      const filterFor = (targ, keyword) => {
+
+        //  Creates an empty array 'newArr'
+        let newArr = []; 
+
+        //  Map through our target array and
+        //  will push all 'listItem' that includes
+        //  specified keyword
+        targ.map(listItem => {
+
+          //  Checks if the inner HTML of the item
+          //  contains the specified keyword
+          if (listItem.innerHTML.includes(keyword)) {
+
+            //  Push this item into the 'newArr'
+            newArr.push(listItem);
+          }
+        });
+
+        // Returns the resulting 'newArr'
+        return newArr;
+      };
+
+      //  Filters through the supplied array, the
+      //  resulting array is stored into the
+      //  'filteredArr' const
+      const filteredArr = filterFor(Arr, 'Flexbox');
+
+      //  Logs 'filteredArr' for checking
+      console.log(filteredArr);
+
+      //---------------------------------------------
+      //  Map down to a list of time strings
+      //---------------------------------------------
+
+      //  Creates a 'getTimeStamps' const that accepts
+      //  a target and an attribute to check for
+      const getTimeStamps = (targ, attribute) => {
+
+        //  Creates and empty array 'timeArr'
+        let timeArr = [];
+
+        //  Maps through the target array and gets
+        //  the associated attribute for each item
+        targ.map(item => {
+          
+          //  Stores the attribute into the 'timeStamp' const
+          const timeStamp = item.getAttribute(attribute);
+
+          //  Pushes 'timeStamp' into the 'timeArr' array
+          timeArr.push(timeStamp);
+        });
+
+        //  returns the resulting 'timeArr'
+        return timeArr;
+      };
+
+      //  Gets the 'data-time' attributes of the target array
+      //  and stores it into the 'timeList' const
+      const timeList = getTimeStamps(filteredArr,'data-time');
+
+      //  Logs 'timeList' for checking purposes
+      console.log(timeList);
+
+      //---------------------------------------------
+      //  Map to an array of seconds
+      //---------------------------------------------
+
+      //  Creates a 'convertToSeconds' const that accepts
+      //  a target
+      const convertToSeconds = targ => {
+
+        //  Creates and empty arr 'timeInSecs'
+        const timeInSecs = [];
+
+        //  Maps through each item and figures out
+        //  what parts are minutes and what parts
+        //  are seconds
+        targ.map(item => {
+
+          //  Splits the time format string using the ':'
+          //  as a reference of the split point
+          const time = item.split(":");
+          
+          //  Gets the part of the split pertaining to the minutes
+          const timeMin = parseInt(time[0]);
+
+          //  Gets the part of the split pertaining to the seconds
+          const timeSec = parseInt(time[1]);
+
+          //  Converts the minutes part into seconds and adds
+          //  the remaining seconds to get total time of each
+          //  item in seconds
+          const totalTime = (timeMin * 60) + timeSec;
+
+          //  Logs Min, Sec and Total for checking purposes
+          console.log(`timeMin: ${timeMin} timeSec: ${timeSec} totalTime: ${totalTime}`);
+
+          //  Pushes 'totalTime' into the new array 'timeInSecs'
+          timeInSecs.push(totalTime);
+        });
+
+        //  Returns the 'timeInSecs' array
+        return timeInSecs;
+      };
+
+      //  Takes 'timeList' and converts its contents into seconds
+      const secArr = convertToSeconds(timeList);
+
+      //  Logs 'secArr' for checking purposes
+      console.log(secArr);
+
+      //---------------------------------------------
+      //  Reduce to get total
+      //---------------------------------------------
+      
+      //  Creates a reducer for the reduce Array prototype method
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      
+      //  Apply .reduce to our target array
+      const totalSecs = secArr.reduce(reducer);
+
+      //  Gets the result of dividing our total
+      //  time by 60 and applying Math.floor
+      //  to the result to get our minutes
+      const totalTimeMinutes = Math.floor(totalSecs / 60);
+
+      //  Gets the total time and gets the remainder
+      //  which will be our seconds value
+      const totalTimeSeconds = totalSecs % 60;
+
+      //  Final log to show we actually got to convert all
+      //  of that to a proper minutes / seconds format
+      console.log(`Total subject time: ${totalTimeMinutes} minutes and ${totalTimeSeconds} seconds`);
+
+    </script>
+  </body>
+</html>
+
