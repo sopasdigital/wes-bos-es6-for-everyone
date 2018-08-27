@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tagged Templates</title>
+    <style>
+      .hl {
+        background: #ffc600;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+
+      //  Function which accepts the strings and values
+      //  from the template literal.
+      function highlight(strings, ...values) {
+        
+        //  Define an empty 'str' let variable
+        let str = '';
+
+        //  loops through each string
+        strings.forEach((string, i) => {
+          //  Reference code that prints out
+          //  the strings and values in order
+          //  If uncommented, will show raw version
+          //  of the string we want to pass
+
+          // str += string + (values[i] || '');
+
+          //  Concats string and values[i] and gives us
+          //  the freedom to insert and improve on the
+          //  values we receive before feeding them
+          //  back into our final string
+          str += `${string} <span contenteditable class="hl">${values[i] || ''}</span>`
+        });
+
+        //  Returns resulting string 'str'
+        return str;
+      }
+
+      const name = 'Snickers';
+      const age = 100;
+      //  Example of a tagged template
+      //  You call the function name before the template
+      //  literal
+      const sentence = highlight`My dog's name is ${name} and he is ${age} years old`;
+
+      //  Logs our sentence
+      console.log(sentence);
+
+      //  Inserts 'sentence' into the html body
+      document.body.innerHTML = sentence;
+    </script>
+  </body>
+</html>
