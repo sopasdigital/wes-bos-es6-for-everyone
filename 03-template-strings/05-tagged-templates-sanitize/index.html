@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tagged Templates - Sanitize</title>
+  </head>
+  <body>
+
+    <div class="bio"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/0.8.2/purify.min.js"></script>
+    <script>
+      //  Our sanitize function
+      function sanitize(strings, ...values) {
+        //  Gets our strings and values and reduces both
+        //  prepping it for any changes we want to introduce
+        const raw = strings.reduce((prev, next, i) => `${prev}${next}${values[i] || ''}`,'');
+
+        //  Apply the sanitize library onto our 'raw' const
+        //  and return whatever result we get
+        return DOMPurify.sanitize(raw);
+      }
+
+      const first = 'Rob';
+
+      //  Declare our tagged template by placing the function
+      //  name beside our template literal
+      const aboutMe = sanitize`I am a crazy crazy man <img src="http://unsplash.it/100/100?random" onload="alert('you got hacked');" />`;
+
+      //  Our html content
+      const html = `
+        <h3>${first}</h3>
+        <p>${aboutMe}</p>
+      `
+
+      //  Find the 'bio' class 
+      const bio = document.querySelector('.bio');
+
+      //  changes the innerHTML of 'bio'
+      bio.innerHTML = html;
+
+    </script>
+  </body>
+</html>
