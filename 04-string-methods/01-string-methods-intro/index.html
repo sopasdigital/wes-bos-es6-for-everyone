@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>String Methods</title>
+  </head>
+  <body>
+    <script>
+      const course = 'RFB2';
+      const flightNumber = '20-AC2018-jz';
+      const accountNumber = '234234589RT0001';
+
+      const make = 'BMW';
+      const model = 'x5';
+      const colour = 'Royal Blue';
+
+      //  A little shortcut function for logging
+      const lg = (param) => {console.log(param)};
+
+      //  Using .startsWith()
+      //---------------------
+      //  this string method is case SENSITIVE
+      //  must still use RegEx if you don't need it to be
+      lg('.startsWith - Passing in "RFB":');
+      lg(course.startsWith('RFB'));
+      
+      lg('.startsWith - Passing in "rfb":');
+      lg(course.startsWith('rfb'));
+
+      //  Adding a number parameter tells .startsWith()
+      //  to skip 'x' number of characters before
+      //  checking
+      lg('.startsWith - Using the Skip param (skip first 3 chars):');
+      lg(flightNumber.startsWith('AC',3));
+
+      //  Using .endsWith()
+      //---------------------
+      //  similar to startsWith() but as the name
+      //  implies, uses the end as a reference
+      lg('.endsWith - Passing in "jz":');
+      lg(flightNumber.endsWith('jz'));
+
+      //  Adding a number parameter tells .endsWith()
+      //  to take 'x' number of characters and check
+      //  that length of string & ignore the rest
+      lg('.endsWith - Using the Scope param (scope to first 11 chars):');
+      lg(accountNumber.endsWith('RT', 11));
+
+      //  Using .includes()
+      //---------------------
+      lg('.includes - Passing in "AC":');
+      lg(flightNumber.includes('AC'));
+
+      //  Similar to .startsWith, this method is
+      //  case SENSITIVE
+      lg('.includes - Passing in "ac":');
+      lg(flightNumber.includes('ac'));
+
+      //  Using .repeat()
+      //---------------------
+      //  Using repeat to create some padding on the left
+      //  side of the passed params
+      function leftPad(str, length = 20) {
+        //  Returns a template literal that has repeated
+        //  spacing based on the the params set
+        return `>${' '.repeat(length - str.length)}${str}`;
+      }
+
+      //  Logs for checking
+      lg('.repeat');
+      lg(leftPad(make));
+      lg(leftPad(model));
+      lg(leftPad(colour));
+
+      //  Silly use of repeat
+      //  Forcing the template literal to return 'NaN'
+      //  repeating it 10 times and attaching ` Batman`
+      //  at the end
+      const batman = `${'a' * 2}`.repeat(10) + ` Batman`;
+      
+      //  Logs the sillyness
+      lg('Silly use of .repeat:')
+      lg(batman);
+
+    </script>
+  </body>
+</html>
