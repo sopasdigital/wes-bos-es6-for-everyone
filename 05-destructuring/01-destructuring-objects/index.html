@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Destructuring Objects</title>
+  </head>
+  <body>
+    <script>
+      
+      const person = {
+        first: 'Marissa',
+        last: 'Biesecker',
+        country: 'Portugal',
+        city: 'Porto',
+        instagram: '@maribies'
+      };
+
+      //  Notes:
+      //  Destructuring - A javascript expression that allows
+      //  us to extract data from arrays, objects, etc. into
+      //  their own variable/s
+
+      //  top-level variables
+      //  normally this is how you access data from objects
+
+      // const first = person.first;
+      // const last = person.last;
+
+      //  Destructuring syntax
+      //  In layman's terms, give me var 'first' and var 'last'
+      //  and get it from the person object
+      //  Does the exact same thing as the commented out declaration
+      const { first, last, instagram } = person;
+
+      //  'console.log' shortcut coz I'm lazy
+      const lg = (msg) => { console.log(msg); };
+
+      //  Logs the called variables
+      lg(`'first' var: ${first}`);
+      lg(`'last' var: ${last}`);
+      lg(`'instagram' var: ${instagram}`);
+
+      //  Define 'user' object that has nested
+      //  data simulating data fetched from
+      //  an API
+      const user = {
+        first: 'Robbie',
+        last: 'Hilado',
+        links: {
+          social: {
+            facebook: 'https://facebook.com/fromlefttowritecal.li',
+            instagram: '@fromlefttowritecal.li'
+
+          },
+          web: {
+            wesbite: 'http://robbiehilado.com/'
+          }
+        }
+      }
+      
+      //  top-level variables
+      //  normally this is how you access data from objects
+
+      // const facebook = user.links.social.facebook;
+      // const instagram = user.links.social.instagram;
+      // const first = user.first;
+
+      //  Using destructuring to assign new 'key's when
+      //  they're currently used by other existing objects
+      const { facebook: fb, instagram: ig } = user.links.social;
+      const firstname = user.first;  
+
+      //  Logs the called variables
+      lg(`${firstname}'s facebook is: ${fb} and instagram handle is: ${ig}`);
+
+      //  Using destructuring to define defaults
+
+      // var settings = { width: 300, color: 'black' }; // we also need height, and fontsize
+
+      //  Declare some settings
+      const settings = { width: 300, color: 'black' };
+      //  Destructuring used to set default values for certain settings
+      const { width = 100, height = 100, color = 'blue', fontSize = 25 } = settings;
+
+      //  Logs results. Note that the result will display '300' for 'width'
+      //  and 'black' for 'color' instead of the defaults
+      lg(`Settings: w: ${width}, h: ${height}, col: ${color}, fontSize: ${fontSize}px`);
+
+      //  An example of using destructuring to both reassign keys
+      //  as well as provide defaults
+      //  The object passed only has a 'w' key of 800
+      //  The defaults are converting 'w' to 'width' and
+      //  'h' to 'height' respectively
+      const { width: w = 400, height: h = 500 } = { width: 800 };
+
+      lg(`The object has a width of ${w}px and a height of ${h}px`);
+
+    </script>
+  </body>
+</html>
